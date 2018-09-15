@@ -1,0 +1,33 @@
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
+
+<table class="table table-hover no-more-tables" style="margin-top: 20px;">
+  <thead>
+  <tr>
+    <th class="h-align">날짜</th>
+    <th class="h-align">외상자</th>
+    <th class="h-align">품목</th>
+    <th class="h-align">수량</th>
+    <th class="h-align">금액</th>
+  </tr>
+  </thead>
+  <tbody>
+      <td><%= @credit.date %></td>
+      <td><%= @credit.name %></td>
+      <td><%= @credit.product_name %></td>
+      <td><%= @credit.product_num %></td>
+      <td><%= number_with_delimiter(@credit.cost) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn-sm">
+  <%= link_to '수정', edit_credit_path(@credit) %>
+</button>
+<button class="btn-sm">
+  <%= link_to '뒤로', credits_path %>
+</button>
