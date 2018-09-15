@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   resources :residents
   resources :delivaries
   devise_for :users
+
+  controller :residents do
+    post '/residents/:id/change_active' => :change_active, :as =>'resident_change_active'
+  end
   controller :receive_credits do
     get '/recent_credits' =>:recent_index
     post '/recent_credits' => :recent_return

@@ -1,6 +1,6 @@
 class ResidentsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update, :destroy]
-  before_action :set_resident, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update, :change_active]
+  before_action :set_resident, only: [:show, :edit, :update, :change_active]
 
   # GET /residents
   # GET /residents.json
@@ -11,7 +11,7 @@ class ResidentsController < ApplicationController
       @select_dong = 'A'
     end
 
-    @resident = Resident.where('dong = ?',@select_dong)
+    @resident = Resident.where('dong = ? and active = ?',@select_dong, Resident::ACTIVE_USER::ACTIVE)
 
     respond_to do |format|
       format.html
@@ -62,13 +62,15 @@ class ResidentsController < ApplicationController
     end
   end
 
-  # DELETE /residents/1
-  # DELETE /residents/1.json
-  def destroy
-    @resident.destroy
+  def change_active
     respond_to do |format|
-      format.html { redirect_to residents_url, notice: 'Resident was successfully destroyed.' }
-      format.json { head :no_content }
+      if @resident.update(:active => Resident::ACTIVE_USER::INACTIVE)
+        format.html { redirect_to residents_path, notice: '성공적으로 삭제되었습니다.' }
+        format.json { render :show, status: :ok, location: @resident }
+      else
+        format.html { render :edit }
+        format.json { render json: @resident.errors, status: :unprocessable_entity }
+      end
     end
   end
 

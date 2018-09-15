@@ -8,6 +8,13 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, value:'수정'%>
+    <% if @resident.id.present? %>
+      <%= f.button :submit, value:'수정'%>
+      <button class="btn btn-default", style="background-color:white" >
+        <%= link_to '삭제', resident_change_active_path, method: :post %>
+      </button>
+    <% else %>
+      <%= f.button :submit, value:'등록'%>
+    <% end %>
   </div>
 <% end %>
