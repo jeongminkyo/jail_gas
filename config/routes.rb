@@ -7,6 +7,14 @@ Rails.application.routes.draw do
   controller :residents do
     post '/residents/:id/change_active' => :change_active, :as =>'resident_change_active'
   end
+
+  controller :resident_money do
+    get '/resident_money' => :index
+    get '/resident_money/new' => :new
+    post '/resident_money' => :create
+    get '/resident_money/:id/edit' => :edit
+    put '/resident_money/:id' => :update
+  end
   controller :receive_credits do
     get '/recent_credits' =>:recent_index
     post '/recent_credits' => :recent_return
