@@ -4,7 +4,17 @@ class ResidentsController < ApplicationController
   # GET /residents
   # GET /residents.json
   def index
-    @residents = Resident.all
+    if params[:select_dong].present?
+      @select_dong = params[:select_dong]
+    else
+      @select_dong = 'A'
+    end
+
+    @resident = Resident.where('dong = ?',@select_dong)
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   # GET /residents/1
