@@ -38,7 +38,7 @@ class ResidentsController < ApplicationController
 
     respond_to do |format|
       if @resident.save
-        format.html { redirect_to @resident, notice: 'Resident was successfully created.' }
+        format.html { redirect_to residents_path, notice: '성공적으로 생성되었습니다.' }
         format.json { render :show, status: :created, location: @resident }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class ResidentsController < ApplicationController
   def update
     respond_to do |format|
       if @resident.update(resident_params)
-        format.html { redirect_to @resident, notice: 'Resident was successfully updated.' }
+        format.html { redirect_to residents_path, notice: '성공적으로 수정되었습니다.' }
         format.json { render :show, status: :ok, location: @resident }
       else
         format.html { render :edit }
