@@ -1,0 +1,47 @@
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
+<h1>월별 수금 내역</h1>
+<br>
+<div class="grid simple">
+  <div class="grid-body">
+    <div class="grid-body">
+      <br>
+      <h3>수정</h3>
+      <%= form_tag resident_money_edit_path(:id => params[:id]), method: :put, class: 'form-inline search-user-form' do %>
+        <table class="table table-hover no-more-tables" id="addTable" style="margin-top: 20px;">
+          <thead>
+          <tr>
+            <th class="h-align">동</th>
+            <th class="h-align">호수</th>
+            <th class="h-align">이름</th>
+            <th class="h-align">금액</th>
+            <th class="h-align">날짜</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= @resident_money.dong %></td>
+            <td><%= @resident_money.ho %></td>
+            <td><%= @resident_money.name %></td>
+            <td><input type="text"  class="form-control" placeholder="금액" style="width:100px" value="<%= @resident_money.money %>" name="money"></td>
+            <td><input type="text"  class="form-control" placeholder="날짜" style="width:120px" value="<%= @resident_money.date %>" name="date"></td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+        <button class="btn-sm" type="submit">적용</button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".resident").addClass("active");
+        $(".resi").find('li').last().addClass("active");
+    })
+</script>
