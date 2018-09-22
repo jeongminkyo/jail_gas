@@ -19,5 +19,11 @@ class Resident < ApplicationRecord
           .joins('join resident_moneys on residents.id = resident_moneys.resident_id')
           .where('resident_moneys.id = ?', id)
     end
+
+    def get_resident(dong)
+      Resident.select('dong,ho,name, resident_moneys.money, resident_moneys.date')
+          .joins('left join resident_moneys on residents.id = resident_moneys.resident_id')
+          .where('dong = ?', dong)
+    end
   end
 end

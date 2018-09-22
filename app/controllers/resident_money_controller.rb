@@ -1,24 +1,19 @@
 class ResidentMoneyController < ApplicationController
+  before_filter :set_dong_month, only: [:index, :new]
   before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update]
 
   def index
-    if params[:select_dong].present? && params[:select_month].present?
-      @select_dong = params[:select_dong]
-      month = params[:select_month]
-    else
-      @select_dong = 'A'
-      month = Date.current.strftime('%m').to_i
-    end
-
-    @resident_money = Resident.get_resident_money(month, @select_dong)
-
     respond_to do |format|
       format.html
     end
   end
 
   def new
+    @resident_money = Resident.get_resident(@select_dong)
 
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
@@ -42,4 +37,13 @@ class ResidentMoneyController < ApplicationController
     end
   end
 
+  private
+
+  def set_dong_month
+    if params[:select_month].present?
+      @month = params[:select_month]
+    else
+      @month = Date.current.strftime('%m').to_i
+    end
+  end
 end
