@@ -16,12 +16,13 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore Byebug command history file.
+.byebug_history
+
 *.gem
-/config/deploy.rb
 Gemfile.lock
 /local_config/*
 .idea/
-Capfile
 atlassian-ide-plugin.xml
 /vendor/*
 p
@@ -33,3 +34,5 @@ p
 
 # Ignore DB schema
 db/schema.rb
+# Ignore application configuration
+/config/application.yml
