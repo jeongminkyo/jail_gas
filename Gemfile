@@ -75,3 +75,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rubyzip'
 gem 'axlsx'
 gem 'axlsx_rails'
+
+gem 'capistrano', '~> 3.7'
+gem 'capistrano-rails', '~> 1.1.0' gem 'capistrano-rbenv'
+gem 'capistrano-bundler'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-nginx'
