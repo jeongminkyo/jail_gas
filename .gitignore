@@ -14,7 +14,7 @@
 /log/*
 /tmp/*
 !/log/.keep
-!/tmp/.kee
+!/tmp/.keep
 
 *.gem
 /config/deploy.rb
