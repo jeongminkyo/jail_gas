@@ -1,6 +1,6 @@
 class ResidentMoneyController < ApplicationController
-  before_filter :set_dong_month, only: [:index, :new]
   before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update]
+  before_filter :set_month, only: [:index, :new]
 
   def index
     respond_to do |format|
@@ -9,7 +9,7 @@ class ResidentMoneyController < ApplicationController
   end
 
   def new
-    @resident_money = Resident.get_resident(@select_dong)
+    @resident_money = Resident.get_resident(@month)
 
     respond_to do |format|
       format.html
@@ -39,7 +39,7 @@ class ResidentMoneyController < ApplicationController
 
   private
 
-  def set_dong_month
+  def set_month
     if params[:select_month].present?
       @month = params[:select_month]
     else

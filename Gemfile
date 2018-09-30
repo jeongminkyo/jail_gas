@@ -82,3 +82,5 @@ gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-nginx'
+
+gem 'jquery-ui-rails'

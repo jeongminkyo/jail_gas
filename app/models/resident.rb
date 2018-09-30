@@ -20,10 +20,10 @@ class Resident < ApplicationRecord
           .where('resident_moneys.id = ?', id)
     end
 
-    def get_resident(dong)
-      Resident.select('dong,ho,name, resident_moneys.money, resident_moneys.date')
+    def get_resident(month)
+      Resident.select('resident_moneys.id as id,dong,ho,name, resident_moneys.money, resident_moneys.date')
           .joins('left join resident_moneys on residents.id = resident_moneys.resident_id')
-          .where('dong = ?', dong)
+          .where('(resident_moneys.month is NULL or resident_moneys.month = ?)', month)
     end
   end
 end
