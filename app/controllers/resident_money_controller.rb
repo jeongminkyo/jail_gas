@@ -17,7 +17,19 @@ class ResidentMoneyController < ApplicationController
   end
 
   def create
+    success = 0
+    if params[:resident_money].present? && params[:select_month].present?
+      params[:resident_money].each do |resident_id, value|
+        if value[0].present? && value[1].present?
+          ResidentMoney.create(money:value[0], date: value[1], resident_id: resident_id, month:params[:select_month])
+          success += 1
+        end
+      end
+    end
 
+    respond_to do |format|
+      format.html { redirect_to resident_money_path(select_month: params[:select_month]), notice: success.to_s + '건 성공적으로 생성되었습니다.'}
+    end
   end
 
   def edit
