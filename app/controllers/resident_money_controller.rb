@@ -1,5 +1,5 @@
 class ResidentMoneyController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update]
+  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update,:find_resident]
   before_filter :set_month, only: [:index, :new]
 
   def index
@@ -34,6 +34,18 @@ class ResidentMoneyController < ApplicationController
           format.html { redirect_to resident_money_path, error: '수정에 실패했습니다. 관리자에게 문의하세요' }
         end
       end
+    end
+  end
+
+  def find_resident
+    @resident_monies = []
+
+    if params[:name].present?
+      @resident_monies = ResidentMoney.get_resident_money_info(params[:name])
+    end
+
+    respond_to do |format|
+      format.html
     end
   end
 
