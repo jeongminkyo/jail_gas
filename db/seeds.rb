@@ -6,12 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-find_admin = User.find_by_email('admin@email.com')
-unless find_admin.present?
-  admin_user = User.create( email: 'admin@email.com', password: 'tlsrnd13!@', confirmed_at: Time.now )
-  admin_user.add_role :admin
-end
-
 find_config = Config.find_by_product_name('10kg')
 unless find_config.present?
   Config.create( product_name: '10kg', cost: 0, count: 0)

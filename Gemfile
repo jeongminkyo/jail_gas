@@ -16,6 +16,9 @@ gem 'omniauth-google-oauth2'
 gem 'rolify'
 gem 'authority'
 
+# admin
+gem 'rails_admin'
+
 # 개발 모드에서 이메일을 보내않고 브라우저에서 미리보기한는 젬
 gem 'letter_opener', group: :development
 
