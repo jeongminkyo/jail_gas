@@ -1,6 +1,20 @@
 class ResidentMoneyController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update,:find_resident]
+  before_action :authenticate_user!
   before_filter :set_month, only: [:index, :new]
+
+  before_filter(only: [:index, :find_resident]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
+
+  before_filter(only: [:new, :edit, :create, :update, :change_active]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
 
   def index
     respond_to do |format|

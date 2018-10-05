@@ -23,7 +23,7 @@ class User < ApplicationRecord
         if user.nil?
           user = User.new(
               email: auth.info.email,
-              password: Devise.friendly_token[0,20],
+              password: Devise.friendly_token[0,20]
           )
           user.save!
         end
