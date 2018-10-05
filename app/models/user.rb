@@ -21,11 +21,9 @@ class User < ApplicationRecord
       unless self.where(email: auth.info.email).exists?
         # 없다면 새로운 데이터를 생성한다.
         if user.nil?
-          color = Random.rand(255).to_s(16) + Random.rand(255).to_s(16) + Random.rand(255).to_s(16)
           user = User.new(
               email: auth.info.email,
               password: Devise.friendly_token[0,20],
-              color: '#' + color
           )
           user.save!
         end
@@ -43,6 +41,18 @@ class User < ApplicationRecord
 
   def email_required?
     false
+  end
+
+  def is_admin?
+    has_role?(:admin)
+  end
+
+  def is_user?
+    has_role?(:user)
+  end
+
+  def is_member?
+    has_role?(:member)
   end
 
   private
