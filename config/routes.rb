@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :residents
   resources :delivaries
-  devise_for :users
+  devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks'}
 
   controller :residents do
     post '/residents/:id/change_active' => :change_active, :as =>'resident_change_active'

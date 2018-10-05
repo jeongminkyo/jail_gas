@@ -8,10 +8,13 @@ end
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'
 
-# 회원인증 및 권한설정을 위한 젬
 gem 'devise'     # 회원가입 및 인증
-gem 'rolify'     # role 관리
-gem 'authority'  # 권한설정
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
+#권한설정
+gem 'rolify'
+gem 'authority'
 
 # 개발 모드에서 이메일을 보내않고 브라우저에서 미리보기한는 젬
 gem 'letter_opener', group: :development
@@ -84,3 +87,4 @@ gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-nginx'
 
 gem 'jquery-ui-rails'
+gem 'figaro'

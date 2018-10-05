@@ -1,3 +1,16 @@
+<style>
+  .omb_btn-google {
+    background: #c32f10;
+    margin-top: 10px;
+  }
+  a {
+    color: white;
+  }
+  a:hover {
+     color: white;
+     opacity: 1;
+   }
+</style>
 <h2>로그인</h2>
 <% flash.each do |type, message| %>
 <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
@@ -14,8 +27,11 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "로그인" %>
+    <%= f.button :submit, "로그인", class:'btn btn-md btn-primary btn-block login'%>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<a href="/users/auth/google_oauth2" class="btn btn-md btn-block omb_btn-google">
+  <span>Google+ 계정으로 로그인</span>
+</a>
+
