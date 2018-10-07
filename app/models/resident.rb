@@ -28,8 +28,7 @@ class Resident < ApplicationRecord
 
     def get_resident(month)
       Resident.select('residents.id as id,dong,ho,name, resident_moneys.money, resident_moneys.date')
-          .joins('left join resident_moneys on residents.id = resident_moneys.resident_id')
-          .where('(resident_moneys.month is NULL or resident_moneys.month = ?)', month)
+          .joins("left outer join (select * from resident_moneys where month = #{month}) resident_moneys on residents.id = resident_moneys.resident_id")
     end
   end
 end
