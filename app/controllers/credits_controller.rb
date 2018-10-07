@@ -1,7 +1,21 @@
 class CreditsController < ApplicationController
   before_action :set_credit, only: [:show, :edit, :update, :destroy]
   before_action :set_auth, only: [:edit, :new]
-  before_action :authenticate_user!, only: [:show, :index, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
+  before_filter(only: [:index, :show]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
+
+  before_filter(only: [:new, :create, :edit, :update, :destroy, :payment]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
   # GET /credits
   # GET /credits.json
   def index
@@ -94,10 +108,8 @@ class CreditsController < ApplicationController
     def set_auth
       if params[:id].present?
         @credit = Credit.find(params[:id])
-        authorize_action_for @credit
       else
         @credit = Credit.new
-        authorize_action_for @credit
       end
     end
 

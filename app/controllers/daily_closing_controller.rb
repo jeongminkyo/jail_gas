@@ -1,12 +1,25 @@
 class DailyClosingController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :index, :create, :closing, :destroy]
+  before_action :authenticate_user!
+  before_filter(only: [:index, :show]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
+
+  before_filter(only: [:closing, :update_delivary, :edit_delivary, :create, :edit, :add_delivary, :update_credit, :delete_credit, :edit_closing]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
 
   LIST_PER_PAGE = 25
 
   def index
     page = params[:page].blank? ? 1 : params[:page]
     @daily_closing = DailyClosing.where('deliver= ?', params[:deliver]).order('id DESC').page(page).per(LIST_PER_PAGE)
-    authorize_action_for @daily_closing
+
   end
 
   def show

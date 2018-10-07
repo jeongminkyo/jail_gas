@@ -29,6 +29,7 @@ class Resident < ApplicationRecord
     def get_resident(month)
       Resident.select('residents.id as id,dong,ho,name, resident_moneys.money, resident_moneys.date')
           .joins("left outer join (select * from resident_moneys where month = #{month}) resident_moneys on residents.id = resident_moneys.resident_id")
+          .order('id')
     end
   end
 end

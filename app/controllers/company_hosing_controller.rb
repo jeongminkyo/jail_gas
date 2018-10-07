@@ -1,5 +1,18 @@
 class CompanyHosingController < ApplicationController
-  before_action :authenticate_user!, only: [:company_hosing, :edit, :add_people]
+  before_action :authenticate_user!
+  before_filter(only: [:company_hosing]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
+
+  before_filter(only: [:edit_people, :edit, :apply_edit_people, :set_update, :add_people,:update_people]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
 
   PER_MONEY = Config.find_by_id(8).cost
   SHARE = Config.find_by_id(7).cost
@@ -28,7 +41,6 @@ class CompanyHosingController < ApplicationController
     end
 
     @company_housing = CompanyHosing.where('dong = ?', @select_dong.to_i)
-    authorize_action_for @company_housing
   end
 
   def edit_people
@@ -90,7 +102,6 @@ class CompanyHosingController < ApplicationController
     end
 
     @company_housing = CompanyHosing.where('dong = ?',@select_dong.to_i)
-    authorize_action_for @company_housing
 
     respond_to do |format|
       format.html

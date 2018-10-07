@@ -1,6 +1,18 @@
 class ReceiveCreditsController < ApplicationController
-  before_action :authenticate_user!, only: [:receive_index, :recent_index, :receive_return, :recent_return]
+  before_action :authenticate_user!
+  before_filter(only: [:recent_index, :receive_index]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
 
+  before_filter(only: [:recent_return, :receive_return]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
   def recent_index
     page = params[:page].blank? ? 1 : params[:page]
     params[:value] = 2

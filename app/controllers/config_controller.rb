@@ -1,5 +1,18 @@
 class ConfigController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :edit, :update]
+  before_action :authenticate_user!
+  before_filter(only: [:index]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
+
+  before_filter(only: [:edit, :update]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
 
   def index
     @config = Config.all
