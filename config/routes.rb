@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     post '/resident_money' => :create
     get '/resident_money/:id/edit' => :edit
     put '/resident_money/:id' => :update, :as => 'resident_money_edit'
+    delete '/resident_money/:id' => :destroy, :as => 'destroy_resident_money'
     get '/resident_money/find_resident' => :find_resident
   end
   controller :receive_credits do

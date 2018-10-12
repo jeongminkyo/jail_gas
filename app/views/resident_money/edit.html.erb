@@ -1,3 +1,12 @@
+<style>
+  .delete_button {
+    display: inline-block;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-style: solid;
+    border-width: 1px;
+  }
+</style>
+
 <% flash.each do |type, message| %>
   <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -34,6 +43,7 @@
         </table>
         <br>
         <button class="btn-sm" type="submit">적용</button>
+        <div class="btn-sm delete_button"><%= link_to '삭제', destroy_resident_money_path, method: :delete, data: { confirm: "삭제 하시겠습니까?" } %></div>
       <% end %>
     </div>
   </div>

@@ -63,6 +63,17 @@ class ResidentMoneyController < ApplicationController
     end
   end
 
+  def destroy
+    if params[:id].present?
+      resident_money = ResidentMoney.find_by_id(params[:id])
+      resident_money.destroy
+
+      respond_to do |format|
+        format.html { redirect_to resident_money_path, notice: '삭제되었습니다.' }
+      end
+    end
+  end
+
   def find_resident
     @resident_monies = []
 
