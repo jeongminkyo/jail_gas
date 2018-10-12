@@ -7,7 +7,7 @@ module ResidentMoneyHelper
   end
 
   def get_resdient(month, dong)
-    resient_money = Resident.get_resident_money(month, dong)
+    Resident.get_resident_money(month, dong)
   end
 
   def sum_money(month, dong)

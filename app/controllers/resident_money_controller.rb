@@ -1,6 +1,6 @@
 class ResidentMoneyController < ApplicationController
   before_action :authenticate_user!
-  before_filter :set_month, only: [:index, :new]
+  before_filter :set_month, only: [:index]
 
   before_filter(only: [:index, :find_resident]) do
     user = User.find_by_id(current_user.id)
@@ -9,7 +9,7 @@ class ResidentMoneyController < ApplicationController
     end
   end
 
-  before_filter(only: [:new, :edit, :create, :update, :change_active]) do
+  before_filter(only: [:new, :edit, :create, :update, :change_active, :destroy]) do
     user = User.find_by_id(current_user.id)
     unless user.is_admin?
       redirect_to root_path, :flash => { :error => '권한이 없습니다' }
@@ -23,7 +23,7 @@ class ResidentMoneyController < ApplicationController
   end
 
   def new
-    @resident_money = Resident.get_resident(@month)
+    @resident_money = Resident.all
 
     respond_to do |format|
       format.html
@@ -31,18 +31,37 @@ class ResidentMoneyController < ApplicationController
   end
 
   def create
-    success = 0
-    if params[:resident_money].present? && params[:select_month].present?
+    fail_create_resident = []
+    if params[:resident_money].present?
       params[:resident_money].each do |resident_id, value|
-        if value[0].present? && value[1].present?
-          ResidentMoney.create(money:value[0], date: value[1], resident_id: resident_id, month:params[:select_month])
-          success += 1
+        if value[0].present? && value[1].present? && value[2].present?
+          return_value = ResidentMoney.where('resident_id =? and month = ?', resident_id, value[0]).first_or_initialize do |resident_money|
+            resident_money.month = value[0]
+            resident_money.money = value[1]
+            resident_money.date = value[2]
+            resident_money.resident_id = resident_id
+          end
+          if return_value.id.present? # create 안 된 case
+            resident = Resident.find_by_id(resident_id)
+            resident_hash = {}
+            resident_hash[:name] = resident.name
+            resident_hash[:dong] = resident.dong
+            resident_hash[:ho] = resident.ho
+            fail_create_resident.push(resident_hash)
+          end
+          return_value.save
         end
       end
     end
 
-    respond_to do |format|
-      format.html { redirect_to resident_money_path(select_month: params[:select_month]), notice: success.to_s + '건 성공적으로 생성되었습니다.'}
+    if fail_create_resident.empty?
+      respond_to do |format|
+        format.html { redirect_to resident_money_path(select_month: params[:select_month]), notice: '성공적으로 생성했습니다.'}
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to resident_money_path(select_month: params[:select_month]), :flash => { :error => fail_create_resident }}
+      end
     end
   end
 
