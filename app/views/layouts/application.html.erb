@@ -58,9 +58,6 @@
             </ul>
           </li>
           <li class="config"><a href="/configs"><span class="glyphicon glyphicon-cog"></span> 설정</a></li>
-          <% if user_signed_in? && user_is_admin?(current_user) %>
-            <li><a href="/admin">admin</a></li>
-          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
