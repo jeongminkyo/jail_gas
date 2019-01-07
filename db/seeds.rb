@@ -107,5 +107,5 @@ Resident.create(dong:'F', ho:204 ,name:'최지현' )
 Resident.create(dong:'F', ho:205 ,name:'최낙훈' )
 Resident.create(dong:'F', ho:206 ,name:'정윤선' )
 
-
-
+admin_user = User.create( email: 'admin@email.com', password: 'tlsrnd13!@')
+admin_user.add_role :admin

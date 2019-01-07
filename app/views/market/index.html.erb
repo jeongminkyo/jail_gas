@@ -1,0 +1,52 @@
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
+<h1>시장 상가 관리</h1>
+<br>
+<div class="grid simple">
+  <div class="grid-body">
+    <div class="panel-body">
+      <div class="col-md-3">
+      </div>
+    </div>
+    <div class="grid-body">
+      <br>
+      <table class="table table-hover no-more-tables" id="addTable" style="margin-top: 20px;">
+        <thead>
+        <tr>
+          <th class="h-align">이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @market.each do |row| %>
+          <tr id="<%= dom_id(row) %>"  class="linkable" data-href="<%= 'market/'+row.id.to_s + '/edit' %>">
+            <td><%= row.name %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+      <button class="btn-sm">
+        <%= link_to '추가', new_market_path %>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('table td').click(function(){
+            window.location = $(this).parent().data('href');
+            return false;
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".market").addClass("active");
+        $(".market_li").find('li').first().addClass("active");
+    })
+</script>
