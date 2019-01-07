@@ -1,0 +1,18 @@
+<%= simple_form_for(@market) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+  </div>
+
+  <div class="form-actions">
+    <% if @market.id.present? %>
+      <%= f.button :submit, value:'수정'%>
+      <button class="btn btn-default", style="background-color:white" >
+        <%= link_to '삭제', resident_change_active_path, method: :post %>
+      </button>
+    <% else %>
+      <%= f.button :submit, value:'등록'%>
+    <% end %>
+  </div>
+<% end %>

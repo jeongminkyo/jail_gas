@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <% @market.each do |row| %>
-          <tr id="<%= dom_id(row) %>"  class="linkable" data-href="<%= 'market/'+row.id.to_s + '/edit' %>">
+          <tr id="<%= dom_id(row) %>"  class="linkable" data-href="<%= 'markets/'+row.id.to_s + '/edit' %>">
             <td><%= row.name %></td>
           </tr>
         <% end %>

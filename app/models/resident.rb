@@ -32,5 +32,9 @@ class Resident < ApplicationRecord
           .joins('left join resident_moneys on residents.id = resident_moneys.resident_id')
           .order('id')
     end
+
+    def active_resident_dong(dong)
+      where('dong = ? and active = ?',dong, ACTIVE_USER::ACTIVE)
+    end
   end
 end

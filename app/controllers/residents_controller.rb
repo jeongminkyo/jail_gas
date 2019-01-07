@@ -18,13 +18,8 @@ class ResidentsController < ApplicationController
   # GET /residents
   # GET /residents.json
   def index
-    if params[:select_dong].present?
-      @select_dong = params[:select_dong]
-    else
-      @select_dong = 'A'
-    end
-
-    @resident = Resident.where('dong = ? and active = ?',@select_dong, Resident::ACTIVE_USER::ACTIVE)
+    @select_dong = params[:select_dong].present? ? params[:select_dong] : 'A'
+    @resident = Resident.active_resident_dong(@select_dong)
 
     respond_to do |format|
       format.html
@@ -53,10 +48,8 @@ class ResidentsController < ApplicationController
     respond_to do |format|
       if @resident.save
         format.html { redirect_to residents_path, notice: '성공적으로 생성되었습니다.' }
-        format.json { render :show, status: :created, location: @resident }
       else
         format.html { render :new }
-        format.json { render json: @resident.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,10 +60,8 @@ class ResidentsController < ApplicationController
     respond_to do |format|
       if @resident.update(resident_params)
         format.html { redirect_to residents_path, notice: '성공적으로 수정되었습니다.' }
-        format.json { render :show, status: :ok, location: @resident }
       else
         format.html { render :edit }
-        format.json { render json: @resident.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,10 +70,8 @@ class ResidentsController < ApplicationController
     respond_to do |format|
       if @resident.update(:active => Resident::ACTIVE_USER::INACTIVE)
         format.html { redirect_to residents_path, notice: '성공적으로 삭제되었습니다.' }
-        format.json { render :show, status: :ok, location: @resident }
       else
         format.html { render :edit }
-        format.json { render json: @resident.errors, status: :unprocessable_entity }
       end
     end
   end
