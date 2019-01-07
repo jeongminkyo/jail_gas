@@ -1,0 +1,57 @@
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
+<h1>월별 수금 내역 추가</h1>
+<br>
+<div class="grid simple">
+  <div class="grid-body">
+    <div class="grid-body">
+      <br>
+      <%= form_tag market_monies_path, method: :post, class: 'form-inline search-user-form' do %>
+        <table class="table table-hover no-more-tables" style="margin-top: 20px;">
+          <thead>
+          <tr>
+            <th class="h-align">이름</th>
+            <th class="h-align">수금월분</th>
+            <th class="h-align">금액</th>
+            <th class="h-align">날짜</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <% @markets.each do |row| %>
+              <td><%= row.name %></td>
+              <td><input type="text" class="form-control" style="width:100px" name="market_money[<%= row.id %>][]"></td>
+              <td><input type="text" class="form-control" style="width:100px" name="market_money[<%= row.id %>][]"></td>
+              <td><input type="text" class="form-control money_date" style="width:100px" name="market_money[<%= row.id %>][]" id="money_date_<%= row.id%>"></td>
+              </tr>
+            <% end %>
+            </tbody>
+        </table>
+        <br>
+        <button class="btn-sm" type="submit">추가</button>
+        <button class="btn-sm" onclick="location.href='<%= market_monies_path %>'">
+          뒤로
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".market").addClass("active");
+        $(".market_li").find('li').eq(1).addClass("active");
+    })
+
+    $(".money_date").each(function(){
+        $(this).datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+
+</script>
+

@@ -68,7 +68,7 @@ class ResidentsController < ApplicationController
 
   def change_active
     respond_to do |format|
-      if @resident.update(:active => Resident::ACTIVE_USER::INACTIVE)
+      if @resident.update(:active => Resident::ActiveUser::INACTIVE)
         format.html { redirect_to residents_path, notice: '성공적으로 삭제되었습니다.' }
       else
         format.html { render :edit }

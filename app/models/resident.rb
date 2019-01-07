@@ -2,7 +2,7 @@ class Resident < ApplicationRecord
 
   has_many :resident_money
 
-  module ACTIVE_USER
+  module ActiveUser
     ACTIVE = 0
     INACTIVE = 1
   end
@@ -34,7 +34,7 @@ class Resident < ApplicationRecord
     end
 
     def active_resident_dong(dong)
-      where('dong = ? and active = ?',dong, ACTIVE_USER::ACTIVE)
+      where('dong = ? and active = ?',dong, ActiveUser::ACTIVE)
     end
   end
 end

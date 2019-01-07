@@ -6,6 +6,20 @@ Rails.application.routes.draw do
   resources :markets
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks'}
 
+  controller :markets do
+    post '/markets/:id/change_active' => :change_active, :as =>'market_change_active'
+  end
+
+  controller :market_monies do
+    get '/market_monies' => :index
+    get '/market_monies/new' => :new
+    post '/market_monies' => :create
+    get '/market_monies/:id/edit' => :edit
+    put '/market_monies/:id' => :update
+    delete '/market_monies/:id' => :destroy
+    get '/market_monies/find_resident' => :find_resident
+  end
+
   controller :residents do
     post '/residents/:id/change_active' => :change_active, :as =>'resident_change_active'
   end
@@ -19,6 +33,7 @@ Rails.application.routes.draw do
     delete '/resident_money/:id' => :destroy, :as => 'destroy_resident_money'
     get '/resident_money/find_resident' => :find_resident
   end
+
   controller :receive_credits do
     get '/recent_credits' =>:recent_index
     post '/recent_credits' => :recent_return

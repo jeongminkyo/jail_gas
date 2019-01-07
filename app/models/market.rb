@@ -1,13 +1,15 @@
 class Market < ApplicationRecord
 
-  module ACTIVE_MARKET
+  has_many :market_money
+
+  module ActiveMarket
     ACTIVE = 0
     INACTIVE = 1
   end
 
   class << self
     def active_market
-      where(active: ACTIVE_MARKET::ACTIVE)
+      where(active: ActiveMarket::ACTIVE)
     end
   end
 end
