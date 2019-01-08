@@ -110,5 +110,7 @@ role_list.each do |role|
   Role.where(name: role).first_or_create
 end
 
-admin_user = User.first_or_create( email: 'admin@email.com', password: 'tlsrnd13!@')
+admin_user = User.create(email: 'admin@email.com', password: 'tlsrnd13!@')
 admin_user.add_role :admin
+
+User.create(email: 'redwonder@naver.com', password: 'tlsrnd13!@')

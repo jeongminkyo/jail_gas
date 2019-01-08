@@ -1,19 +1,16 @@
 class MarketMoniesController < ApplicationController
   before_action :authenticate_user!
+
   before_filter :set_month, only: [:index]
 
   before_filter(only: [:index, :find_resident]) do
     user = User.find_by_id(current_user.id)
-    unless user.is_member? || user.is_admin?
-      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
-    end
+    redirect_to root_path, flash: { error: '권한이 없습니다' } if user.is_user?
   end
 
   before_filter(only: [:new, :edit, :create, :update, :change_active, :destroy]) do
     user = User.find_by_id(current_user.id)
-    unless user.is_admin?
-      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
-    end
+    redirect_to root_path, flash: { error: '권한이 없습니다' } unless user.is_admin?
   end
 
   def index
@@ -109,10 +106,6 @@ class MarketMoniesController < ApplicationController
   private
 
   def set_month
-    if params[:select_month].present?
-      @month = params[:select_month]
-    else
-      @month = Date.current.strftime('%m').to_i
-    end
+    @month = params[:select_month].present? ? params[:select_month] : Date.current.strftime('%m').to_i
   end
 end
