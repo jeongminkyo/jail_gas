@@ -17,6 +17,7 @@
             <th class="h-align">동</th>
             <th class="h-align">호수</th>
             <th class="h-align">이름</th>
+            <th class="h-align">수금년분</th>
             <th class="h-align">수금월분</th>
             <th class="h-align">금액</th>
             <th class="h-align">날짜</th>
@@ -28,6 +29,7 @@
               <td><%= row.dong %></td>
               <td><%= row.ho %></td>
               <td><%= row.name %></td>
+              <td><input type="text" class="form-control" style="width:100px" name="resident_money[<%= row.id %>][]"></td>
               <td><input type="text" class="form-control" style="width:100px" name="resident_money[<%= row.id %>][]"></td>
               <td><input type="text" class="form-control" style="width:100px" name="resident_money[<%= row.id %>][]"></td>
               <td><input type="text" class="form-control money_date" style="width:100px" name="resident_money[<%= row.id %>][]" id="money_date_<%= row.id%>"></td>
