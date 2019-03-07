@@ -4,10 +4,10 @@ class ResidentMoney < ApplicationRecord
   class << self
 
     def get_resident_money_info(name)
-      ResidentMoney.select('month, money, date, dong,ho,name')
+      self.select('month, money, date, dong,ho,name, year')
           .joins('left join residents on residents.id = resident_moneys.resident_id')
           .where("name like '%#{name}%'")
-          .order('dong,ho,name, month')
+          .order('dong,ho,name, year, month')
     end
   end
 end

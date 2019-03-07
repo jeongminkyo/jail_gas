@@ -1,6 +1,7 @@
 class ResidentMoneyController < ApplicationController
   before_action :authenticate_user!
   before_filter :set_month, only: [:index]
+  before_filter :set_year, only: [:index]
 
   before_filter(only: [:index, :find_resident]) do
     user = User.find_by_id(current_user.id)
@@ -34,11 +35,12 @@ class ResidentMoneyController < ApplicationController
     fail_create_resident = []
     if params[:resident_money].present?
       params[:resident_money].each do |resident_id, value|
-        if value[0].present? && value[1].present? && value[2].present?
-          return_value = ResidentMoney.where('resident_id =? and month = ?', resident_id, value[0]).first_or_initialize do |resident_money|
-            resident_money.month = value[0]
-            resident_money.money = value[1]
-            resident_money.date = value[2]
+        if value[0].present? && value[1].present? && value[2].present? && value[3].present?
+          return_value = ResidentMoney.where('resident_id =? and year = ? and month = ?', resident_id, value[0], value[1]).first_or_initialize do |resident_money|
+            resident_money.year = value[0]
+            resident_money.month = value[1]
+            resident_money.money = value[2]
+            resident_money.date = value[3]
             resident_money.resident_id = resident_id
           end
           if return_value.id.present? # create 안 된 case
@@ -112,6 +114,14 @@ class ResidentMoneyController < ApplicationController
       @month = params[:select_month]
     else
       @month = Date.current.strftime('%m').to_i
+    end
+  end
+
+  def set_year
+    if params[:select_year].present?
+      @year = params[:select_year]
+    else
+      @year = Date.current.strftime('%Y').to_i
     end
   end
 end
