@@ -1,0 +1,53 @@
+<style>
+  .delete_button {
+    display: inline-block;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-style: solid;
+    border-width: 1px;
+  }
+</style>
+
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
+<h1>월별 수금 내역</h1>
+<br>
+<div class="grid simple">
+  <div class="grid-body">
+    <div class="grid-body">
+      <br>
+      <h3>수정</h3>
+      <%= form_tag market_monies_edit_path(:id => params[:id]), method: :put, class: 'form-inline search-user-form' do %>
+        <table class="table table-hover no-more-tables" id="addTable" style="margin-top: 20px;">
+          <thead>
+          <tr>
+            <th class="h-align">이름</th>
+            <th class="h-align">금액</th>
+            <th class="h-align">날짜</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= @market_money.name %></td>
+            <td><input type="text"  class="form-control" placeholder="금액" style="width:100px" value="<%= @market_money.money %>" name="money"></td>
+            <td><input type="text"  class="form-control" placeholder="날짜" style="width:120px" value="<%= @market_money.date %>" name="date"></td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+        <button class="btn-sm" type="submit">적용</button>
+        <div class="btn-sm delete_button"><%= link_to '삭제', destroy_market_monies_path, method: :delete, data: { confirm: "삭제 하시겠습니까?" } %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".market").addClass("active");
+        $(".market_li").find('li').eq(1).addClass("active");
+    })
+</script>

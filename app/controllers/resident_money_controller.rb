@@ -4,15 +4,13 @@ class ResidentMoneyController < ApplicationController
   before_filter :set_year, only: [:index]
 
   before_filter(only: [:index, :find_resident]) do
-    user = User.find_by_id(current_user.id)
-    unless user.is_member? || user.is_admin?
+    unless current_user.is_member? || current_user.is_admin?
       redirect_to root_path, :flash => { :error => '권한이 없습니다' }
     end
   end
 
   before_filter(only: [:new, :edit, :create, :update, :change_active, :destroy]) do
-    user = User.find_by_id(current_user.id)
-    unless user.is_admin?
+    unless current_user.is_admin?
       redirect_to root_path, :flash => { :error => '권한이 없습니다' }
     end
   end
@@ -58,11 +56,11 @@ class ResidentMoneyController < ApplicationController
 
     if fail_create_resident.empty?
       respond_to do |format|
-        format.html { redirect_to resident_money_path(select_month: params[:select_month]), notice: '성공적으로 생성했습니다.'}
+        format.html { redirect_to resident_money_path(select_month: params[:select_month], select_year: params[:select_year]), notice: '성공적으로 생성했습니다.'}
       end
     else
       respond_to do |format|
-        format.html { redirect_to resident_money_path(select_month: params[:select_month]), :flash => { :error => fail_create_resident }}
+        format.html { redirect_to resident_money_path(select_month: params[:select_month], select_year: params[:select_year]), :flash => { :error => fail_create_resident }}
       end
     end
   end
@@ -110,18 +108,10 @@ class ResidentMoneyController < ApplicationController
   private
 
   def set_month
-    if params[:select_month].present?
-      @month = params[:select_month]
-    else
-      @month = Date.current.strftime('%m').to_i
-    end
+    @month = params[:select_month].present? ? params[:select_month] : Date.current.strftime('%m').to_i
   end
 
   def set_year
-    if params[:select_year].present?
-      @year = params[:select_year]
-    else
-      @year = Date.current.strftime('%Y').to_i
-    end
+    @year = params[:select_year].present? ? params[:select_year] : @year = Date.current.strftime('%Y').to_i
   end
 end
