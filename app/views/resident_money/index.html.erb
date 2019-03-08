@@ -11,7 +11,7 @@
     <div class="panel-body">
       <div class="col-md-3">
         <%= form_tag resident_money_path, method: :get, class: 'form-inline search-user-form' do %>
-          <div class="input-group align-center" style="width: 150%; display:inline-flex">
+          <div class="input-group align-center" style="width: 100%; display:inline-flex">
             <%= select_tag(:select_year, options_for_select(select_box_year, @year), { :class => 'form-control' })  %>
             <%= select_tag(:select_month, options_for_select(select_box_month, @month), { :class => 'form-control' })  %>
             <div class="input-group-btn">

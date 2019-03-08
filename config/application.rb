@@ -14,5 +14,6 @@ module JailGas
     config.time_zone = 'Seoul'
     config.active_record.default_timezone = :local
     config.active_record.time_zone_aware_attributes = false
+    config.action_controller.include_all_helpers = false
   end
 end
