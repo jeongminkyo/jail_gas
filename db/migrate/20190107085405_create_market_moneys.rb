@@ -1,6 +1,7 @@
 class CreateMarketMoneys < ActiveRecord::Migration[5.0]
   def change
     create_table :market_moneys do |t|
+      t.integer :year
       t.integer :month
       t.integer :money
       t.integer :market_id

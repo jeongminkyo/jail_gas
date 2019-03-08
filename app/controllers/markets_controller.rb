@@ -3,15 +3,13 @@ class MarketsController < ApplicationController
   before_action :set_market, only: [:show, :edit, :update, :change_active]
 
   before_filter(only: [:index, :show]) do
-    user = User.find_by_id(current_user.id)
-    unless user.is_member? || user.is_admin?
+    unless current_user.is_member? || current_user.is_admin?
       redirect_to root_path, :flash => { :error => '권한이 없습니다' }
     end
   end
 
   before_filter(only: [:new, :edit, :create, :update, :change_active]) do
-    user = User.find_by_id(current_user.id)
-    unless user.is_admin?
+    unless current_user.is_admin?
       redirect_to root_path, :flash => { :error => '권한이 없습니다' }
     end
   end
