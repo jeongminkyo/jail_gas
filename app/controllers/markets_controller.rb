@@ -58,7 +58,7 @@ class MarketsController < ApplicationController
   def change_active
     respond_to do |format|
       if @market.update(active: Market::ACTIVE_MARKET::INACTIVE)
-        format.html { redirect_to residents_path, notice: '성공적으로 삭제되었습니다.' }
+        format.html { redirect_to markets_path, notice: '성공적으로 삭제되었습니다.' }
       else
         format.html { render :edit }
       end
