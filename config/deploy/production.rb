@@ -61,5 +61,5 @@
 #   }
 set :stage, :production
 set :branch, 'master'
-server '52.79.135.167', user: 'ubuntu', roles: %w{web app db}
+server '54.180.9.255', user: 'ubuntu', roles: %w{web app db}
 
