@@ -52,4 +52,4 @@ production:
   database: jail_gas_production
   username: jail_gas
   password: <%= ENV['JAIL_GAS_DATABASE_PASSWORD'] %>
-  host: 10.20.102.67
+  host: 10.40.101.201
