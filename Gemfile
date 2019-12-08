@@ -53,6 +53,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+#
+# version issue로 인한 version 명시 gem
+gem 'nio4r', '2.3.1'
+gem 'net-ssh', '4.2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
