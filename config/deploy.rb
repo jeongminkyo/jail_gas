@@ -1,4 +1,4 @@
-lock "~> 3.11.0"
+lock "~> 3.15.0"
 
 set :application, 'jail_gas'
 set :repo_url, 'https://github.com/jeongminkyo/jail_gas.git'
