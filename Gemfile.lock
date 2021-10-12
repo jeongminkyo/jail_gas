@@ -200,7 +200,8 @@ GEM
     parser (3.0.0.0)
       ast (~> 2.4.1)
     public_suffix (3.1.1)
-    puma (3.12.6)
+    puma (4.3.9)
+      nio4r (~> 2.0)
     rack (2.1.4)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
@@ -358,7 +359,6 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
-  ffi (~> 1.12, >= 1.12.2)
   figaro
   haml-lint
   jbuilder (~> 2.5)
@@ -372,7 +372,7 @@ DEPENDENCIES
   nio4r (= 2.3.1)
   omniauth
   omniauth-google-oauth2
-  puma (~> 3.0)
+  puma (~> 4.3)
   rails (~> 5.0.6)
   rails_admin
   rolify
