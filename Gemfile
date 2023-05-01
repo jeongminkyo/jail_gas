@@ -86,7 +86,7 @@ gem 'rubyzip'
 gem 'axlsx'
 gem 'axlsx_rails'
 
-gem 'capistrano', '~> 3.7'
+gem 'capistrano'
 gem 'capistrano-rails', '~> 1.1.0'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
