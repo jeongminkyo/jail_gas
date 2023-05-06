@@ -9,8 +9,6 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'
 
 gem 'devise'     # 회원가입 및 인증
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
 
 #권한설정
 gem 'rolify'
@@ -24,6 +22,9 @@ gem 'letter_opener', group: :development
 
 # 페이징
 gem 'kaminari'
+
+# env
+gem 'dotenv-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
@@ -85,13 +86,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rubyzip'
 gem 'axlsx'
 gem 'axlsx_rails'
-
-gem 'capistrano'
-gem 'capistrano-rails', '~> 1.1.0'
-gem 'capistrano-rbenv'
-gem 'capistrano-bundler'
-gem 'capistrano-passenger', '~> 0.2.0'
-gem 'capistrano-nginx'
 
 gem 'jquery-ui-rails'
 gem 'figaro'
