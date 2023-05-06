@@ -13,13 +13,13 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password:
-  host: localhost
 
 development:
   <<: *default
   database: gas_erp
+  username: root
+  password: mysql
+  host: 127.0.0.1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -52,4 +52,4 @@ production:
   database: jail_gas_production
   username: jail_gas
   password: <%= ENV['JAIL_GAS_DATABASE_PASSWORD'] %>
-  host: 10.30.102.82
+  host: jailgas-prd-rds.cobc3tnsukzd.ap-northeast-2.rds.amazonaws.com
