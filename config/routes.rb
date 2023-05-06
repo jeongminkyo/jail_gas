@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :residents
   resources :delivaries
   resources :markets
-  devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
+  devise_for :users
 
   controller :markets do
     post '/markets/:id/change_active' => :change_active, :as =>'market_change_active'
