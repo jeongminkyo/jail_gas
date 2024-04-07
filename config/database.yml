@@ -52,4 +52,4 @@ production:
   database: jail_gas_production
   username: jail_gas
   password: <%= ENV['JAIL_GAS_DATABASE_PASSWORD'] %>
-  host: jailgas-prd-rds.cobc3tnsukzd.ap-northeast-2.rds.amazonaws.com
+  host: jailgas-db.cb08uoq428dv.ap-northeast-2.rds.amazonaws.com 
