@@ -49,7 +49,8 @@ test:
 #
 production:
   <<: *default
-  database: jail_gas_production
-  username: jail_gas
+  database: <%= ENV['JAIL_GAS_DATABASE'] %>
+  username: <%= ENV['JAIL_GAS_DATABASE_USERNAME'] %>
   password: <%= ENV['JAIL_GAS_DATABASE_PASSWORD'] %>
-  host: jailgas-db.cb08uoq428dv.ap-northeast-2.rds.amazonaws.com
+  host: <%= ENV['JAIL_GAS_DATABASE_HOST'] %>
+  port: <%= ENV['JAIL_GAS_DATABASE_PORT'] %>

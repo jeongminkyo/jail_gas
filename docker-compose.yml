@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    env_file:
+      .env
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    image: redwonder/jailgas-rails
+    container_name: rails
+    volumes:
+      - ./log/app:/var/www/jailgas/log
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    image: redwonder/jailgas-nginx
+    container_name: nginx
+    volumes:
+      - ./log/web:/var/www/jailgas/log
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
