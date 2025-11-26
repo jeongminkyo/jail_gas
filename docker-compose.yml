@@ -1,25 +1,25 @@
-version: '3'
 services:
   app:
     env_file:
       .env
-    build:
-      context: .
-      dockerfile: ./docker/app/Dockerfile
+    build: .
     image: redwonder/jailgas-rails
     container_name: rails
+    ports:
+      - '3000:3000'
     volumes:
       - ./log/app:/var/www/jailgas/log
-  web:
-    build:
-      context: .
-      dockerfile: ./docker/web/Dockerfile
-    image: redwonder/jailgas-nginx
-    container_name: nginx
-    volumes:
-      - ./log/web:/var/www/jailgas/log
+  db:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'jailgas'
+      MYSQL_USER: 'jailgas'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      - "80:80"
-    depends_on:
-      - app
-
+      - '3306:3306'
+    volumes:
+      - 'mysql:/var/lib/mysql'
+volumes:
+  mysql:
